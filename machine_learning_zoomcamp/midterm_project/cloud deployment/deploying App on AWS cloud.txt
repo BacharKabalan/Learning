@@ -1,0 +1,33 @@
+ECR
+----------
+* Create a repository on ECR to store the docker image: aws ecr create-repository --repository-name INSERT-NAME-OF-IMAGE
+* Copy the "repositoryUri": this is the url of the repository
+* Log in to the repository (to be able to push the docker image): aws ecr get-login --no-include-email
+	* you can immediately execute the command by adding ${}: ${aws ecr get-login --no-include-email}
+* Reformat the repositoryUri as such - adding the TAG to the docker image you want to push:
+	ACCOUNT=366009647617
+	REGION=us-east-1
+	REGISTRY=zoomcamp_midterm_project
+	PREFIX=${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/${REGISTRY}
+	TAG=zoomcamp_midterm_project
+	REMOTE_URI=${PREFIX}:${TAG}
+
+* Tag the docker image with the REMOTE Uri created above: docker tag zoomcamp_midterm_project_cloud:latest ${REMOTE_URI}
+* Push the docker image to the ECR repository: docker push ${REMOTE_URI}
+
+Lambda
+----------
+create a function from container. 
+
+API Gateway to expose the function as a web service
+----------------------------------------------------
+create new api
+create new resource
+create a method
+
+Deploy the API
+
+now you have a url that you can use to test the API gateway
+
+
+
